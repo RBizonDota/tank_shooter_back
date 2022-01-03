@@ -28,7 +28,8 @@ def generate_tank_data(update_data):
                 },
                 "fire":{
                     "current":20
-                }
+                },
+                "weight":50
             }
     data.update(update_data)
     return data
@@ -43,6 +44,7 @@ class Field:
             "bullets":[],
             "walls":[
                 {
+                    "id":1,
                     "start":{
                         "x":0,
                         "y":0
@@ -51,9 +53,11 @@ class Field:
                         "x": 0,
                         "y": 500
                     },
-                    "width":15
+                    "width":15,
+                    "weight":-1
                 },
                 {
+                    "id":2,
                     "start":{
                         "x":0,
                         "y":500
@@ -62,9 +66,11 @@ class Field:
                         "x": 1000,
                         "y": 500
                     },
-                    "width":15
+                    "width":15,
+                    "weight":-1
                 },
                 {
+                    "id":3,
                     "start":{
                         "x":1000,
                         "y":0
@@ -73,9 +79,11 @@ class Field:
                         "x": 1000,
                         "y": 500
                     },
-                    "width":15
+                    "width":15,
+                    "weight":-1
                 },
                 {
+                    "id":4,
                     "start":{
                         "x":0,
                         "y":0
@@ -84,7 +92,8 @@ class Field:
                         "x": 1000,
                         "y": 0
                     },
-                    "width":15
+                    "width":15,
+                    "weight":-1
                 },
             ],
             "sizes": {

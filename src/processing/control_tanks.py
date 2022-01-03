@@ -4,6 +4,8 @@ from math import sin, cos, pi
 
 from utility.logger import Logger
 
+from processing.utils import point_in_wall
+
 logger = Logger(log_level=2)
 
 def control_tanks(field):
@@ -31,6 +33,18 @@ def control_tanks(field):
         tank_data["pos"]["x"]+=move_const*cos(pi/180*az)*control_unit["move"]
         tank_data["pos"]["y"]+=move_const*sin(pi/180*az)*control_unit["move"]
 
+        # Определение коллизии
+        for vx,vy in [(-1, -1), (-1, 1), (1, 1), (1, -1)]:
+            for wall in field.get_data()["walls"]:
+                # print(field.get_data()["walls"])
+                is_collision, ddata = point_in_wall({
+                    "x": tank_data["pos"]["x"]+vx*tank_data["size"]["x"]/2,
+                    "y": tank_data["pos"]["y"]+vy*tank_data["size"]["y"]/2,
+                }, wall)
+                if is_collision:
+                    tank_data["pos"]["x"]-=vx*ddata["dx"]
+                    tank_data["pos"]["y"]-=vy*ddata["dy"]
+
         # Огонь
         fire_rate = BASE_FIRE_RATE
         if control_unit["fire"] and tank_data["fire"]["current"]>=fire_rate:
@@ -41,8 +55,8 @@ def control_tanks(field):
             #     az: new_tank_data.napr.b_az
             # })
             new_bullet = {
-                "x": tank_data["pos"]["x"]+tank_data["size"]["x"]/2,
-                "y": tank_data["pos"]["y"]+tank_data["size"]["y"]/2,
+                "x": tank_data["pos"]["x"],
+                "y": tank_data["pos"]["y"],
                 "az": tank_data["napr"]["b_az"],
                 "trace":0,
                 "max_trace":BASE_BULLET_MAX_TRACE,
@@ -57,3 +71,6 @@ def control_tanks(field):
             tank_data["fire"]["current"]+=1
     return True
     # return True
+
+def collision_walls(walls, tank_data):
+    pass

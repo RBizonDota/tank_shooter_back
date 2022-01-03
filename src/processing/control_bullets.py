@@ -2,12 +2,24 @@ from config.settings import *
 
 from math import sin, cos, pi, trunc
 
+from processing.utils import point_in_wall
+
+
 def control_bullets(field):
     bullets_to_delete = []
     for i, bullet in enumerate(field._data["bullets"]):
         
         if bullet["max_trace"]<bullet["trace"]:
             bullets_to_delete.append(i)
+
+        for wall in field.get_data()["walls"]:
+                # print(field.get_data()["walls"])
+                is_collision, ddata = point_in_wall({
+                    "x": bullet["x"],
+                    "y": bullet["y"],
+                }, wall)
+                if is_collision:
+                    bullets_to_delete.append(i)
 
         move_const = BASE_BULLET_MOVE_SPEED*bullet["speed_mod"]
 
@@ -18,9 +30,10 @@ def control_bullets(field):
         bullet["x"]+=move_const*cos(pi/180*az)
         bullet["y"]+=move_const*sin(pi/180*az)
         bullet["trace"]+=move_const
-    
+                
     for i in bullets_to_delete:
-        del field._data["bullets"][i]
+        if bullets_to_delete:
+            del field._data["bullets"][i]
 
     return True
 

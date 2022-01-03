@@ -1,11 +1,13 @@
+from .const import CPS
+
 # ----------------------------------------------------------------------
 # -------------------- BASE MOVEMENT PARAMS ----------------------------
 # ----------------------------------------------------------------------
-BASE_ROTATE_SPEED = 2
-BASE_BASE_ROTATE_SPEED = 4
+BASE_ROTATE_SPEED = 20/CPS
+BASE_BASE_ROTATE_SPEED = 40/CPS
 
-BASE_MOVE_SPEED_FORWARD = 5
-BASE_MOVE_SPEED_BACK = 3
+BASE_MOVE_SPEED_FORWARD = 50/CPS
+BASE_MOVE_SPEED_BACK = 30/CPS
 
 # ----------------------------------------------------------------------
 # -------------------- BASE BULLET PARAMS ------------------------------
@@ -13,7 +15,7 @@ BASE_MOVE_SPEED_BACK = 3
 
 BASE_BULLET_MAX_TRACE = 1000
 
-BASE_BULLET_MOVE_SPEED = 25
+BASE_BULLET_MOVE_SPEED = 250/CPS
 BASE_BULLET_SPEED_MOD = 1
 BASE_BULLET_SPEED_SLOW = True
 
@@ -21,4 +23,4 @@ BASE_BULLET_SPEED_SLOW = True
 # -------------------- BASE FIRE PARAMS --------------------------------
 # ----------------------------------------------------------------------
 
-BASE_FIRE_RATE = 30
+BASE_FIRE_RATE = CPS
