@@ -1,10 +1,16 @@
 from config.settings import *
 
 from math import sin, cos, pi
+sign = lambda a: (a>0) - (a<0)
 
 from utility.logger import Logger
 
 from processing.utils import point_in_wall
+
+int_to_acceleration = {
+    1:"forward",
+    -1:"back"
+}
 
 logger = Logger(log_level=2)
 
@@ -24,14 +30,37 @@ def control_tanks(field):
 
         # Поворот башни
         tank_data["napr"]["b_az"]+=BASE_BASE_ROTATE_SPEED*control_unit["b_rotate"]
+        
+        if tank_data["napr"]["az"]>360:
+            tank_data["napr"]["az"]-=360
+        if tank_data["napr"]["az"]<0:
+            tank_data["napr"]["az"]+=360
+        
+        if tank_data["napr"]["b_az"]>360:
+            tank_data["napr"]["b_az"]-=360
+        if tank_data["napr"]["b_az"]<0:
+            tank_data["napr"]["b_az"]+=360
+        # print(control_unit)
+        
+        # Скорость
+        if control_unit["move"]:
+            tank_data["moving"]["speed"]+=tank_data["moving"]["acceleration"][int_to_acceleration[control_unit["move"]]]*control_unit["move"]
+            if not (-1*tank_data["moving"]["max_speed"]["back"]<tank_data["moving"]["speed"]<tank_data["moving"]["max_speed"]["forward"]):
+                tank_data["moving"]["speed"] = -1*tank_data["moving"]["max_speed"]["back"] if tank_data["moving"]["speed"]<0 else tank_data["moving"]["max_speed"]["forward"]
+        elif abs(tank_data["moving"]["speed"])<BASE_ACCELERATION_LOSS:
+            tank_data["moving"]["speed"] = 0
+        else:
+            tank_data["moving"]["speed"]-=sign(tank_data["moving"]["speed"])*BASE_ACCELERATION_LOSS
+        
+        # print("SPEEEEEEED", tank_data["moving"]["speed"])
 
         # Движение
-        move_const = BASE_MOVE_SPEED_FORWARD
+        move_const = tank_data["moving"]["speed"]
         az = tank_data["napr"]["az"]
-        if control_unit["move"]<0:
-            move_const = BASE_MOVE_SPEED_BACK
-        tank_data["pos"]["x"]+=move_const*cos(pi/180*az)*control_unit["move"]
-        tank_data["pos"]["y"]+=move_const*sin(pi/180*az)*control_unit["move"]
+        # if control_unit["move"]<0:
+        #     move_const = BASE_MOVE_SPEED_BACK
+        tank_data["pos"]["x"]+=move_const*cos(pi/180*az)
+        tank_data["pos"]["y"]+=move_const*sin(pi/180*az)
 
         # Определение коллизии
         for vx,vy in [(-1, -1), (-1, 1), (1, 1), (1, -1)]:

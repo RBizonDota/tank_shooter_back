@@ -6,9 +6,12 @@ from .const import CPS
 BASE_ROTATE_SPEED = 20/CPS
 BASE_BASE_ROTATE_SPEED = 40/CPS
 
-BASE_MOVE_SPEED_FORWARD = 50/CPS
-BASE_MOVE_SPEED_BACK = 30/CPS
+BASE_MOVE_SPEED_FORWARD = 70/CPS
+BASE_MOVE_SPEED_BACK = 50/CPS
 
+# BASE_acceleration
+BASE_ACCELERATION = 2/CPS
+BASE_ACCELERATION_LOSS = 1/CPS
 # ----------------------------------------------------------------------
 # -------------------- BASE BULLET PARAMS ------------------------------
 # ----------------------------------------------------------------------

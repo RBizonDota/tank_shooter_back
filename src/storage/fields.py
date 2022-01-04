@@ -29,6 +29,17 @@ def generate_tank_data(update_data):
                 "fire":{
                     "current":20
                 },
+                "moving":{
+                    "speed":0,
+                    "max_speed":{
+                        "forward": BASE_MOVE_SPEED_FORWARD,
+                        "back": BASE_MOVE_SPEED_BACK
+                    },
+                    "acceleration":{
+                        "forward": BASE_ACCELERATION,
+                        "back": BASE_ACCELERATION
+                    }
+                },
                 "weight":50
             }
     data.update(update_data)
@@ -123,7 +134,10 @@ class Field:
         tank_id = str(uuid4())
         logger.debug("Tank created for user", user_id, "tank_id =", tank_id)
         self.users[user_id] = tank_id
-        self.set_tank_data(tank_id, generate_tank_data(tank_data))
+        tank_data["id"] = tank_id
+        tank = generate_tank_data(tank_data)
+        self.set_tank_data(tank_id, tank)
+        return tank
     
     def delete_tank(self, user_id):
         tank_id = self.users.get(user_id)

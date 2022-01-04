@@ -32,7 +32,7 @@ def control_bullets(field):
         bullet["trace"]+=move_const
                 
     for i in bullets_to_delete:
-        if bullets_to_delete:
+        if field._data["bullets"]:
             del field._data["bullets"][i]
 
     return True
