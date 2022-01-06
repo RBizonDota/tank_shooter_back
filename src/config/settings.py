@@ -26,4 +26,5 @@ BASE_BULLET_SPEED_SLOW = True
 # -------------------- BASE FIRE PARAMS --------------------------------
 # ----------------------------------------------------------------------
 
-BASE_FIRE_RATE = CPS
+BASE_FIRE_RATE = 5*CPS
+BASE_FIRE_DAMAGE = 2

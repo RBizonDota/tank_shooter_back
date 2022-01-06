@@ -27,12 +27,13 @@ def disconnect():
     only_field.delete_tank(request.sid)
 
 @socketio.on("tank_control", namespace="/tank_control")
-def tank_control(message):
+def tank_control(message=None):
     """
     Функция вызывается при передаче серверу управляющего воздействия пользователя
     """
     logger.debug("Client user control ","/tank_control",request.sid, message)
-    only_field.set_user_control(request.sid, message)
+    if message:
+        only_field.set_user_control(request.sid, message)
 
 @socketio.on('init', namespace='/tank_control')
 def foo(message):

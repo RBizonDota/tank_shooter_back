@@ -10,7 +10,15 @@ logger = Logger()
 
 def generate_tank_data(update_data):
     data = {
-                "id": "askjfhaskfgajsgfsajhdvajshg",
+                # "id": "askjfhaskfgajsgfsajhdvajshg",
+                
+                # Здоровье
+                "health":{
+                    "current":10,
+                    "max": 50
+                },
+
+                # Параметры размеры
                 "size":{
                     "x":50,
                     "y":30,
@@ -18,28 +26,36 @@ def generate_tank_data(update_data):
                     "w_l": 12,
                     "w_w": 4
                 },
+                # Параметры направления
                 "napr":{
                     "az":360*random(),
                     "b_az":0
                 },
+                # Параметры позиции
                 "pos": {
                     "x": 100+800*random(),
                     "y":50+400*random()
                 },
+                # Параметры стрельбы (не менять)
                 "fire":{
-                    "current":20
+                    "current":20,
+                    "fire_rate": BASE_FIRE_RATE,
+                    "damage": BASE_FIRE_DAMAGE
                 },
                 "moving":{
                     "speed":0,
+                    # Параметры максимальных скоростей
                     "max_speed":{
                         "forward": BASE_MOVE_SPEED_FORWARD,
                         "back": BASE_MOVE_SPEED_BACK
                     },
+                    # Ускорение
                     "acceleration":{
                         "forward": BASE_ACCELERATION,
                         "back": BASE_ACCELERATION
                     }
                 },
+                # Масса (пока не используется)
                 "weight":50
             }
     data.update(update_data)

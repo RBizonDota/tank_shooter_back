@@ -75,7 +75,7 @@ def control_tanks(field):
                     tank_data["pos"]["y"]-=vy*ddata["dy"]
 
         # Огонь
-        fire_rate = BASE_FIRE_RATE
+        fire_rate = tank_data["fire"]["fire_rate"]
         if control_unit["fire"] and tank_data["fire"]["current"]>=fire_rate:
             logger.warn("FIRE !!!!!!", tank_id)
             # new_bullets.push({
@@ -90,7 +90,9 @@ def control_tanks(field):
                 "trace":0,
                 "max_trace":BASE_BULLET_MAX_TRACE,
                 "speed_mod": BASE_BULLET_SPEED_MOD,
-                "speed_slow": BASE_BULLET_SPEED_SLOW
+                "speed_slow": BASE_BULLET_SPEED_SLOW,
+                "tank_fired": tank_data["id"],
+                "damage": tank_data["fire"]["damage"]
             }
             field._data["bullets"].append(new_bullet)
             tank_data["fire"]["current"] = 0
