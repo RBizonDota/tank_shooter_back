@@ -14,17 +14,17 @@ def generate_tank_data(update_data):
                 
                 # Здоровье
                 "health":{
-                    "current":10,
-                    "max": 50
+                    "current":BASE_MAX_HEALTH,
+                    "max": BASE_MAX_HEALTH
                 },
 
                 # Параметры размеры
                 "size":{
-                    "x":50,
-                    "y":30,
-                    "b_r":12, #Радиус башни
-                    "w_l": 12,
-                    "w_w": 4
+                    "x":BASE_SIZE_X,
+                    "y":BASE_SIZE_Y,
+                    "b_r":BASE_SIZE_BASE, #Радиус башни
+                    "w_l": BASE_WEAPON_LENGTH,
+                    "w_w": BASE_WEAPON_WIDTH
                 },
                 # Параметры направления
                 "napr":{
@@ -38,7 +38,7 @@ def generate_tank_data(update_data):
                 },
                 # Параметры стрельбы (не менять)
                 "fire":{
-                    "current":20,
+                    "current":BASE_FIRE_RATE,
                     "fire_rate": BASE_FIRE_RATE,
                     "damage": BASE_FIRE_DAMAGE
                 },

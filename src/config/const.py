@@ -25,3 +25,4 @@ LOG_LEVEL = LOG_LEVEL_DEBUG
 
 CPS = 60 # count per second
 
+SPEED_MODE = 1

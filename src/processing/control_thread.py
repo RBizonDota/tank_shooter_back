@@ -6,7 +6,7 @@ from storage.fields import only_field
 from processing.control_tanks import control_tanks
 from processing.control_bullets import control_bullets
 
-from config.const import CPS
+from config.const import CPS, SPEED_MODE
 
 from utility.logger import Logger
 
@@ -27,7 +27,7 @@ class StreamBackground:
         """
         while self.active:
             self.field_control()
-            socketio.sleep(1/CPS)
+            socketio.sleep(1/CPS/SPEED_MODE)
             # print(self._streams)
 
     def stop(self):
